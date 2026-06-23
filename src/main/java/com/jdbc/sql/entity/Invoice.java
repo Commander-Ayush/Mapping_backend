@@ -17,6 +17,6 @@ public class Invoice {
 
     private String customerName;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "invoice")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "invoice", orphanRemoval = true)
     List<Service> services = new ArrayList<>();
 }

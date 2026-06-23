@@ -45,4 +45,21 @@ public class InvoiceServiceController {
         return serviceRepo.findAll();
     }
 
+    @DeleteMapping("/delete-invoice/{invoice_id}")
+    public String deleteInvoice(@PathVariable("invoice_id") Long invoice_id){
+        invoiceRepo.deleteById(invoice_id);
+        return "deleted";
+    }
+
+    @DeleteMapping("/test-remove-service/{invoice_id}/{service_id}")
+    public Invoice testRemoveService(@PathVariable("invoice_id") Long invoiceId,
+                                     @PathVariable("service_id") Integer serviceId) {
+
+        Invoice invoice = invoiceRepo.findById(invoiceId).get();
+
+        invoice.getServices().removeIf(s -> s.getServiceId() == serviceId);
+
+        return invoiceRepo.save(invoice);
+    }
+
 }
